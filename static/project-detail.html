@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detalle del proyecto</title>
+    <style>
+      :root{--bg:#0b0710;--neon:#ff4d6d;--muted:#9a8f94}
+      body{background:var(--bg);color:#fff;font-family:Inter,system-ui,Arial;padding:2rem}
+      .card{background:rgba(255,255,255,0.03);padding:1.2rem;border-radius:12px;border:1px solid rgba(255,77,109,0.04);max-width:900px;margin:0 auto}
+      a{color:var(--neon);text-decoration:none}
+      h1{color:var(--neon)}
+      pre{background:#081018;padding:0.8rem;border-radius:8px;overflow:auto}
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <a href="/" style="float:right;">Volver</a>
+      <h1 id="title">Proyecto</h1>
+      <p id="desc" class="muted">Detalle del proyecto</p>
+      <h3>Características</h3>
+      <ul id="features"></ul>
+  <!-- Demostración: eliminado por solicitud del autor -->
+      <h3>Nota técnica</h3>
+      <pre id="note">Cargando...</pre>
+    </div>
+
+    <script>
+      // Read id param
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id') || 'unknown';
+      const map = {
+        biseccion: {
+          title: 'Método de bisección',
+          desc: 'Sistema que calcula el método de bisección dentro de una función con intervalos.',
+          features: ['Cálculo numérico con tolerancia', 'Visualización de iteraciones', 'Entrada de funciones dinámicas', 'Visualización de gráficas'],
+          live: '#',
+          note: 'Implementado en Python/HTML.'
+        },
+        registro: {
+          title: 'Sistema de Registro Comunitario',
+          desc: 'Sistema que realiza registros y reportes de censos comunitarios.',
+          features: ['Datos personales de personas', 'Reportes exportables', 'Gestión de usuarios', 'Autenticación básica (asistente)'],
+          live: '#',
+          note: 'Desarrollado en drive/App Script.'
+        },
+        portafolio: {
+          title: 'Sitio web de portafolio',
+          desc: 'Sitio web que facilita la visualización de datos personales, académicos y profesionales.',
+          features: ['Página estática', 'Descarga de CV', 'Sección de proyectos con detalles'],
+          live: '/',
+          note: 'HTML/CSS/JS puro. Deploy sencillo en Vercel/Github Pages.'
+        }
+      };
+
+      const data = map[id] || {title: 'Proyecto no encontrado', desc: 'No se encontró información para este proyecto.', features: [], live: '#', note: 'N/A'};
+      document.getElementById('title').textContent = data.title;
+      document.getElementById('desc').textContent = data.desc;
+      const ul = document.getElementById('features');
+      data.features.forEach(f=>{const li=document.createElement('li');li.textContent=f;ul.appendChild(li)});
+  // set live link only if the element exists (we removed the demo link in some pages)
+  const live = document.getElementById('liveLink');
+  if(live){ live.href = data.live; }
+  // always set the technical note
+  const noteEl = document.getElementById('note');
+  if(noteEl) noteEl.textContent = data.note;
+    </script>
+  </body>
+</html>
